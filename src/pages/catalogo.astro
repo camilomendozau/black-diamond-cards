@@ -1,0 +1,76 @@
+---
+import "../styles/global.css";
+import Video from "../components/Video.astro";
+import Layout from "../layouts/Layout.astro";
+import PDFViewer from "../components/PDFViewer.jsx";
+import PDFReader from "../components/PDFReader.jsx";
+---
+
+<Layout>
+  <main>
+    <div class="flex flex-col items-center justify-center mt-5">
+      <h1 class="md:text-5xl font-bold text-2xl text-zinc-800">
+        Catalogo de Productos
+      </h1>
+    </div>
+    <section
+      class="flex flex-col items-center justify-center border-b-2 border-green-700 pb-10 mb-10 p-0"
+    >
+      <Video
+        title={"VIDEO INTRODUCCION"}
+        descripcion={""}
+        link={"https://www.youtube.com/embed/E1tnA8oeqyY?si=DUoaUzGff0qIpFbi"}
+      />
+    </section>
+    <section class="App">
+      <h3 class="md:text-4xl font-bold text-2xl text-zinc-800 mb-5">
+        Presentación de la capacitación
+      </h3>
+      <div class="pdf-reader-container">
+        <PDFReader
+          client:only="react"
+          src={"/docs/capacitacion-de-productos.pdf"}
+        />
+      </div>
+    </section>
+    <section class="App">
+      <h3 class="md:text-4xl font-bold text-2xl text-zinc-800 mb-5">
+        Catálogo de Productos
+      </h3>
+      <!-- <embed src="/public/docs/catalogo-productos.pdf" type="application/pdf" class="w-full h-full"/> -->
+      <!-- <iframe src="/docs/catalogo-productos.pdf" class="w-full h-full"></iframe> -->
+      <!-- <PDFViewer src={"/docs/catalogo-productos.pdf"} client:only="react"/> -->
+      <div class="pdf-reader-container">
+        <PDFReader client:only="react" src={"/docs/catalogo-productos.pdf"} />
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .App {
+    text-align: center;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    height: fit-content; /* Se adapta al contenido */
+    padding-bottom: 2rem;
+  }
+  .pdf-reader-container {
+    width: 90%;
+    height: 100vh
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white; /* Fondo blanco para el lector de PDF */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+

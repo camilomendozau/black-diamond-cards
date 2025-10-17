@@ -1,0 +1,46 @@
+---
+import "../styles/global.css";
+import { Image } from 'astro:assets';
+interface VideoProps {
+    title?: string;
+    descripcion?: string;
+    link?:string;
+}
+
+const {title = "Video", descripcion="Descripcion" ,link="https://www.youtube.com/embed/iOEsgul1Tj0?si=1-eOcOLgnJfpOUcT"} = Astro.props;
+
+---
+
+<div class="w-full h-full flex flex-col items-center justify-center my-5 md:flex-row md:items-center md:justify-center md:my-10 md:snap-start">
+    <div class="md:w-2/3 md:h-5/6 w-9/10 h-4/8 aspect-video rounded-lg overflow-hidden shadow-2xl mx-10 background-colors flex items-center justify-center">
+        <iframe class="w-14/15 h-5/6" src={link} title={title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <!-- <div class="md:w-1/3 h-3/8 flex flex-col items-center justify-center md:mr-4">
+        <h2 class="text-xl md:text-2xl font-bold md:m-4 m-1 text-center">
+            <i>
+                {title}
+            </i>
+        </h2>
+        <a href={hrefTo} class="sig-btn shadow-md hover:shadow-2xl m-2">
+            Siguiente
+            <Image src={arrowImg} alt="arrow-rigth" class="w-6 inline"/>
+        </a> 
+        <p class="text-sm md:text-base text-center">
+            <i>
+                {descripcion}
+            </i>
+        </p>
+    </div>        -->
+</div>
+<style>
+    h2,p{
+        color: #01111b;
+    }
+    .container-videos{
+        background-color: #e1e1e1;
+    }
+    /* .background-colors {
+		background: rgb(2,0,36);
+		background: linear-gradient(90deg,#50ae43 10%, #7bcf89 54%, #0d6320 100%);
+	} */
+</style>

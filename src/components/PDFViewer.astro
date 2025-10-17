@@ -1,0 +1,46 @@
+---
+import "../styles/global.css";
+
+interface PDFViewerProps{
+    filePath?:string;
+}
+
+const {filePath} = Astro.props;
+---
+
+<div id="pdf-container" class="w-full h-auto bg-gray-200">
+</div>
+
+<script>
+  import { file } from "astro/loaders";
+  import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
+  import pdfWorker from "pdfjs-dist/legacy/build/pdf.worker?url";
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
+
+  const filePath = Astro.props.filePath;
+  console.log(filePath)
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("pdf-container");
+
+    const loadingTask = pdfjsLib.getDocument(filePath);
+    loadingTask.promise.then(pdf => {
+      pdf.getPage(1).then(page => {
+        const scale = 1.5;
+        const viewport = page.getViewport({ scale });
+
+        const canvas = document.createElement("canvas");
+        container.appendChild(canvas);
+
+        const context = canvas.getContext("2d");
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        const renderContext = { canvasContext: context, viewport };
+        page.render(renderContext);
+      });
+    });
+  });
+</script>

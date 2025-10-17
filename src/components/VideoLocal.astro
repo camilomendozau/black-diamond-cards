@@ -1,0 +1,46 @@
+---
+import "../styles/global.css";
+import VideoLocalWithControls from "../components/VideoLocalWithControls.jsx";
+import VideoPlayerLocal from "../components/VideoPlayerLocal.jsx";
+
+interface VideoProps {
+    title?: string;
+    descripcion?: string;
+    src?:string;
+}
+
+const {title = "Local Video", descripcion="Descripcion" ,src=""} = Astro.props;
+
+---
+
+<div class="w-full h-full flex flex-col items-center justify-center my-5 md:items-center md:justify-center md:my-2 md:snap-start">
+    <h1 class="md:text-4xl font-bold text-2xl text-zinc-800 m-5 text-center">
+        {title}
+    </h1>
+    
+        <!-- <video controls autoplay transition:persist>
+            <source
+            src={src}
+            type="video/mp4"
+            />
+        </video> -->
+    <!-- <VideoLocalWithControls src={src} /> -->
+    <VideoPlayerLocal src={src} onNext={() => console.log("Ir al siguiente video")} />
+
+    <p class="text-sm md:text-2xl md:font-medium text-center m-5">
+        {descripcion}
+    </p>
+</div>
+
+<style>
+    h2,p{
+        color: #01111b;
+    }
+    .container-videos{
+        background-color: #e1e1e1;
+    }
+    /* .background-colors {
+		background: rgb(2,0,36);
+		background: linear-gradient(90deg,#50ae43 10%, #7bcf89 54%, #0d6320 100%);
+	} */
+</style>

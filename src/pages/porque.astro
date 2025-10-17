@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+import Video from "../components/Video.astro";
+import Loader from "../components/Loader";
+---
+
+<Layout>
+    <main>
+        <div class="flex flex-col items-center justify-center mt-5">
+            <h1 class="md:text-5xl font-bold text-2xl text-zinc-800">
+                ¿Por qué Biolife?
+            </h1>
+        </div>
+        <section class="flex flex-col items-center justify-center pb-10 mb-10 p-5">
+            <Video
+                title={"¿Por qué Biolife?"}
+                descripcion={""}
+                link={"https://www.youtube.com/embed/pEwOuenPqAU?si=bRWNIE3QJGv8KV3b"}
+            />
+        </section>
+    </main>
+</Layout>

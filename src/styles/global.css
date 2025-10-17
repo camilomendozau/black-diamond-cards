@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import "@fontsource/dm-sans/400.css"; /* Regular */
+@import "@fontsource/dm-sans/500.css"; /* Medium */
+@import "@fontsource/dm-sans/700.css"; /* Bold */
+
+
+@theme {
+  --font-sans: 'DM Sans', 'sans-serif';
+}
+
+@layer base {
+  /* Chrome, Safari, Edge, Opera */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}

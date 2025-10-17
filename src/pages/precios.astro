@@ -1,0 +1,19 @@
+---
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+// import PDFViewer from "../components/PDFViewer.astro";
+import PdfViewer from "../components/PDFViewer.jsx";
+import PDFReader from "../components/PDFReader.jsx";
+---
+
+<Layout>
+    <main>
+        <section class="flex flex-col items-center justify-center">
+            <h1 class="md:text-5xl font-bold text-2xl text-zinc-800 m-5">
+                Lista de Precios
+            </h1>
+            <PDFReader src={"/docs/lista-precios.pdf"} client:only="react"/>
+            <!-- <PdfViewer src={"/docs/lista-precios.pdf"} client:only="react"/> -->
+        </section>
+    </main>
+</Layout>
