@@ -35,13 +35,10 @@ import PDFReader from "../components/PDFReader.jsx";
     </section>
     <section class="App">
       <h3 class="md:text-4xl font-bold text-2xl text-zinc-800 mb-5">
-        Catálogo de Productos
+        Catálogo para tratar enfermedades
       </h3>
-      <!-- <embed src="/public/docs/catalogo-productos.pdf" type="application/pdf" class="w-full h-full"/> -->
-      <!-- <iframe src="/docs/catalogo-productos.pdf" class="w-full h-full"></iframe> -->
-      <!-- <PDFViewer src={"/docs/catalogo-productos.pdf"} client:only="react"/> -->
       <div class="pdf-reader-container">
-        <PDFReader client:only="react" src={"/docs/catalogo-productos.pdf"} />
+        <PDFReader client:only="react" src={"/docs/catalogo-enfermedades.pdf"} />
       </div>
     </section>
   </main>

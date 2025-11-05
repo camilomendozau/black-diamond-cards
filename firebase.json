@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "blackdiamondteam",
     "public": "dist",
     "ignore": [
       "firebase.json",
