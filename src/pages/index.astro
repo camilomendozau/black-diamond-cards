@@ -1,68 +1,87 @@
 ---
-// import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import Video from '../components/Video.astro';
 import ButtonRedirect from '../components/ButtonRedirect.astro';
-import { Image } from 'astro:assets';
 import imagenVendedor from '../assets/imagen-representante2.png';
 import { Icon } from 'astro-iconify'
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const param = Astro.url.searchParams.get('ir');
+import { getDatos, idRef } from '../scripts/api';
+const data = await getDatos(param || idRef || '');
 ---
 
 <Layout>
 	<main>
-		<section>
-			<Video 
-					title={""} 
-					descripcion={""}
-					link={"https://www.youtube.com/embed/vwgtVqjh1yQ?si=wWNZEWQPWHh4ED3j"}
-			    />
-		</section>
-		<div class="flex flex-col items-center justify-center my-10">
-			<h2 class="md:text-5xl font-bold text-2xl text-zinc-800">MAS INFORMACION</h2>
+		<div class="sidebar-content-left">
+			<section class="video-container">
+				<Video 
+						title={"Introduccion"} 
+						descripcion={""}
+						link={data?.initial_video_url??"https://www.youtube.com/embed/vwgtVqjh1yQ?si=wWNZEWQPWHh4ED3j"}
+				    />
+			</section>
 		</div>
-		<section class="flex md:flex-row flex-col items-center justify-center md:space-x-2 space-y-4 md:space-y-0 m-5">
-			<ButtonRedirect
-				hrefTo={"/presentacion"} 
-				title={"Presentación de Negocio"}
-			/>
-			<ButtonRedirect
-				hrefTo={"/catalogo"} 
-				title={"Catalogo de Productos"}
-			/>
-			<ButtonRedirect
-				hrefTo={"/precios"} 
-				title={"Lista de Precios"}
-			/>
-			<ButtonRedirect
-				hrefTo={"/porque"} 
-				title={"¿Por qué Biolife?"}
-			/>
-			<ButtonRedirect
-				hrefTo={"/capacitacion/modulo1"} 
-				title={"Sistema de Formación - Black Diamond"}
-			/>
-		</section>
-		<section class="flex flex-col items-center justify-center my-10">
-			<div class="relative mb-5">
-				<div class="w-50 md:w-70 rounded-full p-3 bg-gradient-to-r from-[#54a04c] via-[#47bd38] to-green-600 shadow-2xl">
-					<Image src={imagenVendedor} alt="seller-image" class="w-full h-full rounded-full object-cover"/>
-				</div>
-				<a href="https://wa.me/59172449448"
-				  class="absolute bottom-0 right-0 bg-gradient-to-r from-[#54a04c] via-[#47bd38] to-green-600 hover:bg-green-600 text-white text-xs font-bold py-1 px-2 rounded-full shadow-md text-center md:text-2xl hover:scale-95 active:scale-105 border-2 border-green-700 transition duration-300 ease-in-out"
-				>
-				Trabaja conmigo <br> Haz clic aquí
-				</a>
-				<Icon name="logos:whatsapp-icon" class="absolute top-0 right-0 md:w-20 md:h-20 w-12 h-12" />
+		<div class="sidebar-content-right">
+			<div class="flex flex-col items-center justify-center my-10">
+			<h2 class="md:text-5xl font-bold text-2xl" style="color: var(--color-text);">MAS INFORMACION</h2>
 			</div>
-		</section>
+			<section class="buttons-container">
+				<ButtonRedirect
+					hrefTo={"/presentacion"} 
+					title={"Presentación de Negocio"}
+				/>
+				<ButtonRedirect
+					hrefTo={"/catalogo"} 
+					title={"Catalogo de Productos"}
+				/>
+				<ButtonRedirect
+					hrefTo={"/precios"} 
+					title={"Lista de Precios"}
+				/>
+				<ButtonRedirect
+					hrefTo={"/porque"} 
+					title={"¿Por qué Biolife?"}
+				/>
+				<!-- <ButtonRedirect
+					hrefTo={"/capacitacion/modulo1"} 
+					title={"Sistema de Formación - Black Diamond"}
+				/> -->
+			</section>
+			<section class="flex flex-col items-center justify-center my-10">
+				<div class="relative mb-5">
+					<div class="w-50 md:w-70 rounded-full p-3 shadow-2xl" style="background: linear-gradient(90deg, var(--gradient-from), var(--gradient-via), var(--gradient-to));">
+						<img 
+							id="seller-image"
+							src={imagenVendedor.src}
+							alt="seller-image"
+							class="w-full h-full rounded-full object-cover"
+						/>
+					</div>
+					<a 
+						id="seller-whatsapp"
+						href="https://wa.me/59172449448"
+					  	style="background: linear-gradient(90deg, var(--gradient-from), var(--gradient-via), var(--gradient-to)); border: 2px solid var(--color-primaryDark);"
+					  	class="absolute bottom-0 right-0 text-white text-xs font-bold py-1 px-2 rounded-full shadow-md text-center md:text-2xl hover:scale-95 active:scale-105 transition duration-300 ease-in-out"
+					>
+					Trabaja conmigo <br> Haz clic aquí
+					</a>
+					<Icon name="logos:whatsapp-icon" class="absolute top-0 right-0 md:w-20 md:h-20 w-12 h-12" />
+				</div>
+			</section>
+		</div>
 	</main>
-	<!-- <Welcome /> -->
 </Layout>
-<!-- <style>
-	h2{
-		/* font-family: var(--font-sans); */
-		color: #2f855a;
-	}
-</style> -->
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const sellerImg = document.getElementById('seller-image') as HTMLImageElement | null;
+		const sellerWhatsApp = document.getElementById('seller-whatsapp') as HTMLAnchorElement | null;
+		
+		if (sellerImg && localStorage.getItem('referrer_image')) {
+			sellerImg.src = localStorage.getItem('referrer_image') || '';
+		}
+		
+		if (sellerWhatsApp && localStorage.getItem('referrer_whatsapp')) {
+			sellerWhatsApp.href = `https://wa.me/${localStorage.getItem('referrer_whatsapp')}`;
+		}
+	});
+</script>

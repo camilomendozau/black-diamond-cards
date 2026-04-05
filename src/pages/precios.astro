@@ -9,7 +9,7 @@ import PDFReader from "../components/PDFReader.jsx";
 <Layout>
     <main>
         <section class="flex flex-col items-center justify-center">
-            <h1 class="md:text-5xl font-bold text-2xl text-zinc-800 m-5">
+            <h1 class="md:text-5xl font-bold text-2xl m-5" style="color: var(--color-text);">
                 Lista de Precios
             </h1>
             <PDFReader src={"/docs/lista-precios.pdf"} client:only="react"/>

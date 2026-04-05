@@ -3,9 +3,42 @@
 @import "@fontsource/dm-sans/500.css"; /* Medium */
 @import "@fontsource/dm-sans/700.css"; /* Bold */
 
-
 @theme {
   --font-sans: 'DM Sans', 'sans-serif';
+}
+
+/* Theme CSS Variables - Default BioGreen */
+:root {
+  /* Primary Colors */
+  --color-primary: #54a04c;
+  --color-primaryLight: #47bd38;
+  --color-primaryDark: #2f7a3d;
+
+  /* Secondary Colors */
+  --color-secondary: #fbbf24;
+  --color-secondaryDark: #d97706;
+
+  /* Accent Colors */
+  --color-accent: #10b981;
+
+  /* Background Colors */
+  --color-background: #ffffff;
+  --color-backgroundDark: #f3f4f6;
+
+  /* Text Colors */
+  --color-text: #1f2937;
+  --color-textLight: #6b7280;
+
+  /* Border Colors */
+  --color-border: #e5e7eb;
+
+  /* Card Colors */
+  --color-card: #ffffff;
+
+  /* Gradient Colors */
+  --gradient-from: #54a04c;
+  --gradient-via: #47bd38;
+  --gradient-to: #22c55e;
 }
 
 @layer base {
@@ -20,4 +53,653 @@
   input[type="number"] {
     -moz-appearance: textfield;
   }
+
+  /* Apply theme colors to body */
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+
+  /* Apply theme to common elements */
+  a {
+    color: var(--color-primary);
+  }
+
+  a:hover {
+    color: var(--color-primaryLight);
+  }
+}
+
+/* Theme-aware utility classes */
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg font-medium transition-all;
+    background-color: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary);
+    color: white;
+    @apply scale-105;
+  }
+
+  .btn-primary:active {
+    background-color: var(--color-primaryDark);
+    color: white;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded-lg font-medium transition-all;
+    background-color: transparent;
+    border: 2px solid var(--color-secondary);
+    color: var(--color-secondary);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-secondary);
+    color: #000;
+    @apply scale-105;
+  }
+
+  .btn-secondary:active {
+    background-color: var(--color-secondaryDark);
+    color: #000;
+  }
+
+  .btn-redirect {
+    background-color: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .btn-redirect:hover,
+  .btn-redirect:active {
+    background: linear-gradient(90deg, var(--gradient-from), var(--gradient-via), var(--gradient-to));
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+
+  .btn-redirect:active {
+    transform: scale(0.98);
+  }
+
+  .card {
+    background-color: var(--color-card);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+  }
+
+  .gradient-text {
+    background: linear-gradient(
+      90deg,
+      var(--gradient-from),
+      var(--gradient-via),
+      var(--gradient-to)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-bg {
+    background: linear-gradient(
+      90deg,
+      var(--gradient-from),
+      var(--gradient-via),
+      var(--gradient-to)
+    );
+  }
+
+  .text-primary {
+    color: var(--color-primary);
+  }
+
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+
+  .bg-card {
+    background-color: var(--color-card);
+  }
+
+  .video-frame {
+    box-shadow: 
+      0 0 0 40px transparent,
+      0 0 0 4px rgba(0,0,0,0.06),
+      0 35px 60px -15px rgba(0,0,0,0.35);
+  }
+}
+
+/* -------------------------------
+   Three display/button templates
+   - theme-classic: clean, geometric buttons
+   - theme-glass: frosted, translucent surfaces
+   - theme-bold: high-contrast, large display
+   Use by adding the theme class to a container, e.g. <body class="theme-classic">.
+   ------------------------------- */
+
+/* Template 1: Classic (balanced, geometric) */
+.theme-classic {
+  --color-primary: #2563eb;
+  --color-primaryLight: #3b82f6;
+  --color-primaryDark: #1e40af;
+  --color-secondary: #06b6d4;
+  --color-background: #ffffff;
+  --color-card: #ffffff;
+  --color-border: #e6eefb;
+  --color-text: #0f172a;
+  --btn-radius: 10px;
+  --btn-padding: 0.6rem 1rem;
+  --btn-font-size: 0.95rem;
+}
+
+.theme-classic .btn-primary {
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--btn-radius);
+  padding: var(--btn-padding);
+  font-size: var(--btn-font-size);
+  box-shadow: none;
+  color: var(--color-primary);
+}
+
+.theme-classic .btn-primary:hover {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 6px 18px rgba(37,99,235,0.25);
+}
+
+.theme-classic .btn-primary:active {
+  background-color: var(--color-primaryDark);
+  color: white;
+}
+
+.theme-classic .btn-secondary {
+  background-color: transparent;
+  border: 2px solid var(--color-secondary);
+  color: var(--color-secondary);
+  border-radius: var(--btn-radius);
+  padding: var(--btn-padding);
+  font-size: var(--btn-font-size);
+}
+
+.theme-classic .btn-secondary:hover {
+  background-color: var(--color-secondary);
+  color: #000;
+}
+
+.theme-classic .btn-secondary:active {
+  background-color: var(--color-secondaryDark);
+  color: #000;
+}
+
+.theme-classic .card {
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+/* Template 2: Glass (translucent UI, subtle blur) */
+.theme-glass {
+  --color-primary: #8b5cf6;
+  --color-primaryLight: #a78bfa;
+  --color-secondary: #06b6d4;
+  --color-background: rgba(255,255,255,0.6);
+  --color-card: rgba(255,255,255,0.35);
+  --color-border: rgba(255,255,255,0.25);
+  --color-text: #0b1220;
+  --btn-radius: 999px;
+  --btn-padding: 0.45rem 0.9rem;
+  --btn-font-size: 0.9rem;
+}
+
+.theme-glass .gradient-bg {
+  background: linear-gradient(90deg, rgba(139,92,246,0.12), rgba(6,182,212,0.08));
+}
+
+.theme-glass .card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  border-radius: 14px;
+  padding: 0.9rem;
+}
+
+.theme-glass .btn-primary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-radius: var(--btn-radius);
+  padding: var(--btn-padding);
+  border: 2px solid var(--color-primary);
+}
+
+.theme-glass .btn-primary:hover {
+  background-color: rgba(139,92,246,0.2);
+  color: var(--color-primary);
+}
+
+.theme-glass .btn-primary:active {
+  background-color: rgba(139,92,246,0.35);
+  color: white;
+}
+
+.theme-glass .btn-secondary {
+  background-color: transparent;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
+  border-radius: var(--btn-radius);
+  padding: var(--btn-padding);
+}
+
+.theme-glass .btn-secondary:hover {
+  background-color: rgba(6,182,212,0.2);
+  color: var(--color-secondary);
+}
+
+.theme-glass .btn-secondary:active {
+  background-color: rgba(6,182,212,0.35);
+  color: #000;
+}
+
+/* Template 3: Bold (large controls, high contrast) */
+.theme-bold {
+  --color-primary: #111827;
+  --color-primaryLight: #374151;
+  --color-secondary: #f97316;
+  --color-background: #f8fafc;
+  --color-card: #ffffff;
+  --color-border: #d1d5db;
+  --color-text: #030712;
+  --btn-radius: 8px;
+  --btn-padding: 0.9rem 1.4rem;
+  --btn-font-size: 1.05rem;
+}
+
+.theme-bold .btn-primary {
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: var(--btn-padding);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  box-shadow: none;
+  border-radius: var(--btn-radius);
+}
+
+.theme-bold .btn-primary:hover {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.25);
+}
+
+.theme-bold .btn-primary:active {
+  background-color: var(--color-primaryLight);
+  color: white;
+}
+
+.theme-bold .btn-secondary {
+  background-color: transparent;
+  border: 2px solid var(--color-secondary);
+  color: var(--color-secondary);
+  border-radius: var(--btn-radius);
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+}
+
+.theme-bold .btn-secondary:hover {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+.theme-bold .btn-secondary:active {
+  background-color: #ea580c;
+  color: white;
+}
+
+.theme-bold .card {
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: 0 8px 24px rgba(2,6,23,0.08);
+}
+
+/* Small helpers to target common display elements */
+.theme-classic .display-title,
+.theme-glass .display-title,
+.theme-bold .display-title {
+  font-family: var(--font-sans);
+}
+
+.display-hero {
+  font-size: 1.6rem;
+  line-height: 1.08;
+  font-weight: 700;
+}
+
+/* ========================================
+   LAYOUT POSITIONS
+   Applied via body class: layout-{layout}
+   ======================================== */
+
+/* Layout: default - existente */
+body.layout-default main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.layout-default .sidebar-content-left,
+body.layout-default .sidebar-content-right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.layout-default .video-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+body.layout-default .video-container > div {
+  width: 100%;
+  max-width: 80rem;
+}
+
+body.layout-default .video-container > div > div:first-child {
+  max-width: 30rem;
+  margin: 0 auto;
+}
+
+body.layout-default .video-container > div > div:first-child video {
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  body.layout-default .video-container > div > div:first-child {
+    max-width: 40rem;
+  }
+}
+
+body.layout-default .buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  body.layout-default .buttons-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Layout: centered - todo centrado */
+body.layout-centered main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+body.layout-centered .sidebar-content-left,
+body.layout-centered .sidebar-content-right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.layout-centered .video-container {
+  width: 100%;
+  max-width: 64rem;
+}
+
+body.layout-centered .buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+body.layout-centered .buttons-container a {
+  margin: 0.5rem;
+}
+
+/* Layout: sidebar - video a un lado, botones al otro */
+body.layout-sidebar main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+body.layout-sidebar .sidebar-content-left,
+body.layout-sidebar .sidebar-content-right {
+  width: 100%;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  body.layout-sidebar main {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 2rem;
+  }
+  body.layout-sidebar .sidebar-content-left {
+    grid-column: 1;
+  }
+  body.layout-sidebar .sidebar-content-right {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+body.layout-sidebar .video-container {
+  width: 100%;
+}
+
+body.layout-sidebar .buttons-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  body.layout-sidebar .buttons-container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2,1fr);
+  }
+  body.layout-sidebar .btn-redirect {
+    padding: 0.4rem 0.6rem;
+    width: 100%;
+    font-size: 0.75rem;
+  }
+  body.layout-sidebar .buttons-container a:nth-child(4),
+  body.layout-sidebar .buttons-container a:nth-child(5) {
+    justify-self: center;
+    grid-column: span 1;
+  }
+}
+
+/* Layout: compact - video pequeño, grid de botones */
+body.layout-compact main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+body.layout-compact .sidebar-content-left,
+body.layout-compact .sidebar-content-right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  body.layout-compact main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+  body.layout-compact .sidebar-content-left {
+    grid-column: 1;
+  }
+  body.layout-compact .sidebar-content-right {
+    grid-column: 2;
+  }
+}
+
+body.layout-compact .video-container {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  body.layout-compact .video-container {
+    max-width: 400px;
+  }
+}
+
+body.layout-compact .buttons-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 480px) {
+  body.layout-compact .buttons-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ========================================
+   MÓVIL: Siempre layout default
+   ======================================== */
+@media (max-width: 767px) {
+  body.layout-centered main,
+  body.layout-sidebar main,
+  body.layout-compact main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  body.layout-centered .video-container,
+  body.layout-sidebar .video-container,
+  body.layout-compact .video-container {
+    width: 100%;
+  }
+  
+  body.layout-centered .buttons-container,
+  body.layout-sidebar .buttons-container,
+  body.layout-default .buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 90%;
+  }
+  
+  body.layout-centered .btn-redirect,
+  body.layout-sidebar .btn-redirect,
+  body.layout-default .btn-redirect {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ========================================
+   TEMPLATE STYLES FOR BUTTONS
+   Applied via body class: template-{template}
+   ======================================== */
+
+/* Template: classic */
+body.template-classic .btn-redirect {
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: none;
+}
+
+body.template-classic .btn-redirect:hover,
+body.template-classic .btn-redirect:active {
+  background: linear-gradient(90deg, var(--gradient-from), var(--gradient-via), var(--gradient-to));
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 6px 18px rgba(37,99,235,0.25);
+}
+
+body.template-classic .btn-redirect:active {
+  transform: scale(0.98);
+}
+
+/* Template: glass */
+body.template-glass .btn-redirect {
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.9rem;
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+body.template-glass {
+  background-color: rgba(255,255,255,0.6);
+}
+
+body.template-glass .btn-redirect:hover,
+body.template-glass .btn-redirect:active {
+  background: linear-gradient(90deg, var(--gradient-from), var(--gradient-via), var(--gradient-to));
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 20px rgba(139,92,246,0.3);
+}
+
+body.template-glass .btn-redirect:active {
+  transform: scale(0.98);
+}
+
+/* Template: bold */
+body.template-bold .btn-redirect {
+  padding: 0.9rem 1.4rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: none;
+  border-radius: 0px;
+}
+
+body.template-bold .btn-redirect:hover,
+body.template-bold .btn-redirect:active {
+  background: linear-gradient(90deg, var(--gradient-from), var(--gradient-via), var(--gradient-to));
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.25);
+}
+
+body.template-bold .btn-redirect:active {
+  transform: scale(0.98);
 }

@@ -19,10 +19,15 @@
     "astro": "^5.13.8",
     "astro-iconify": "^1.2.0",
     "pdfjs-dist": "^5.4.149",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "react-pdf": "^10.1.0",
     "react-player": "^3.3.3",
-    "tailwindcss": "^4.1.13"
+    "recharts": "^3.5.1",
+    "tailwindcss": "^4.1.13",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "baseline-browser-mapping": "^2.9.5"
   }
 }

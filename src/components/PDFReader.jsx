@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Loader from "./Loader";
 import { Document, Page, pdfjs } from "react-pdf";
 import ControlPanel from "./ControlPanel";
+//import { PDFDownloadLink } from "@react-pdf/renderer";
 import "../styles/global.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";

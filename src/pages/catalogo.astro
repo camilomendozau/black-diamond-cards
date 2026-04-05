@@ -2,28 +2,31 @@
 import "../styles/global.css";
 import Video from "../components/Video.astro";
 import Layout from "../layouts/Layout.astro";
-import PDFViewer from "../components/PDFViewer.jsx";
 import PDFReader from "../components/PDFReader.jsx";
+const param = Astro.url.searchParams.get('ir');
+import { getDatos, idRef } from '../scripts/api';
+const data = await getDatos(param || idRef || '');
 ---
 
 <Layout>
   <main>
     <div class="flex flex-col items-center justify-center mt-5">
-      <h1 class="md:text-5xl font-bold text-2xl text-zinc-800">
+      <h1 class="md:text-5xl font-bold text-2xl" style="color: var(--color-text);">
         Catalogo de Productos
       </h1>
     </div>
     <section
-      class="flex flex-col items-center justify-center border-b-2 border-green-700 pb-10 mb-10 p-0"
+      class="flex flex-col items-center justify-center pb-10 mb-10 p-0 video-container"
+      style="border-bottom: 2px solid var(--color-primaryDark); "
     >
       <Video
         title={"VIDEO INTRODUCCION"}
         descripcion={""}
-        link={"https://www.youtube.com/embed/E1tnA8oeqyY?si=DUoaUzGff0qIpFbi"}
+        link={data?.catalog_video_url??"https://www.youtube.com/embed/E1tnA8oeqyY?si=DUoaUzGff0qIpFbi"}
       />
     </section>
     <section class="App">
-      <h3 class="md:text-4xl font-bold text-2xl text-zinc-800 mb-5">
+      <h3 class="md:text-4xl font-bold text-2xl mb-5" style="color: var(--color-text);">
         Presentación de la capacitación
       </h3>
       <div class="pdf-reader-container">
@@ -32,14 +35,22 @@ import PDFReader from "../components/PDFReader.jsx";
           src={"/docs/capacitacion-de-productos.pdf"}
         />
       </div>
+        <!-- <iframe
+          src="/docs/capacitacion-de-productos.pdf"
+          style="border: none; width:80%; height:55vh; border-radius: 20px;"
+        /> -->
     </section>
     <section class="App">
-      <h3 class="md:text-4xl font-bold text-2xl text-zinc-800 mb-5">
+      <h3 class="md:text-4xl font-bold text-2xl mb-5" style="color: var(--color-text);">
         Catálogo para tratar enfermedades
       </h3>
       <div class="pdf-reader-container">
         <PDFReader client:only="react" src={"/docs/catalogo-enfermedades.pdf"} />
       </div>
+      <!-- <iframe
+          src="/docs/catalogo-enfermedades.pdf"
+          style="border: none; width:80%; height:100vh; border-radius: 20px;"
+      /> -->
     </section>
   </main>
 </Layout>
@@ -59,7 +70,7 @@ import PDFReader from "../components/PDFReader.jsx";
   }
   .pdf-reader-container {
     width: 90%;
-    height: 100vh
+    height: 100vh;
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
@@ -70,4 +81,3 @@ import PDFReader from "../components/PDFReader.jsx";
     justify-content: center;
   }
 </style>
-

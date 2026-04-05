@@ -2,6 +2,7 @@
 import background from '../assets/background2.jpeg';
 import Image from 'astro/components/Image.astro';
 import logo from '../assets/logo-bd.png';
+import { ThemeProvider } from '../components/ThemeProvider';
 ---
 
 <!doctype html>
@@ -11,18 +12,20 @@ import logo from '../assets/logo-bd.png';
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Presentación Biolife</title>
+		<title>Entrenamiento - Black Diamond</title>
 	</head>
 	<body>
-		<header class="sticky top-0 left-0 w-full bg-white bg-opacity-90 backdrop-blur-md z-10 shadow-md">
-			<a href="/">
-				<h1 class="flex flex-col items-center justify-center">
-					<Image src={logo} alt="logo-black-diamond" class="w-40 md:w-60 m-5"/>
-				</h1>
-			</a>
-		</header>
-		<!-- <Image src={background} alt="background-image" class="background-image"/> -->
-		<slot />
+		<ThemeProvider client:load>
+			<header class="sticky top-0 left-0 w-full bg-white bg-opacity-90 backdrop-blur-md z-10 shadow-md">
+				<a href="/">
+					<h1 class="flex flex-col items-center justify-center">
+						<Image src={logo} alt="logo-black-diamond" class="w-40 md:w-60 m-5"/>
+					</h1>
+				</a>
+			</header>
+			<!-- <Image src={background} alt="background-image" class="background-image"/> -->
+			<slot />
+		</ThemeProvider>
 	</body>
 </html>
 

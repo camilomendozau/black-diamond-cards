@@ -1,0 +1,60 @@
+---
+// src/pages/registro.astro
+import "../styles/global.css";
+import InscriptionFormWrapper from '../components/InscriptionFormWrapper';
+import Image from 'astro/components/Image.astro';
+import logo from '../assets/logo.avif';
+---
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acceso al material de Black Diamond</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+    <header class="sticky top-0 left-0 w-full bg-white bg-opacity-90 backdrop-blur-md z-10 shadow-md">
+        <h1 class="flex flex-col items-center justify-center">
+            <Image src={logo} alt="logo-biolife" class="w-40 md:w-60 m-5"/>
+        </h1>       
+    </header>
+    <main class="flex flex-col items-center justify-center">
+        <h2 class="lg:text-4xl text-3xl mb-5 mt-10 font-bold text-center">
+            Antes de ver el material... <br> Queremos conocerte
+        </h2>
+        <!-- ← Usar el Wrapper en lugar de InscriptionForm directamente -->
+        <InscriptionFormWrapper client:load />
+    </main>
+</body>
+</html>
+
+<style>
+    html, body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("../assets/background3.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+        opacity: 0.2;
+        z-index: -1;
+        pointer-events: none;
+    }
+    
+    @media (min-width: 768px) {
+        body::before {
+            background-size: 100%;
+        }
+    } 
+</style>
