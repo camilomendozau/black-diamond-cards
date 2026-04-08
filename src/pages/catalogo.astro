@@ -1,11 +1,11 @@
 ---
 import "../styles/global.css";
-import Video from "../components/Video.astro";
+import Video from "../components/VideoPlayerLocal";
 import Layout from "../layouts/Layout.astro";
 import PDFReader from "../components/PDFReader.jsx";
-const param = Astro.url.searchParams.get('ir');
-import { getDatos, idRef } from '../scripts/api';
-const data = await getDatos(param || idRef || '');
+// const param = Astro.url.searchParams.get('ir');
+// import { getVideoData, idRef } from '../scripts/api';
+// const data = await getVideoData(param || idRef || '');
 ---
 
 <Layout>
@@ -17,13 +17,13 @@ const data = await getDatos(param || idRef || '');
     </div>
     <section
       class="flex flex-col items-center justify-center pb-10 mb-10 p-0 video-container"
-      style="border-bottom: 2px solid var(--color-primaryDark); "
+      style="border-bottom: 2px solid var(--color-primaryDark); width: 75%;"
     >
       <Video
         title={"VIDEO INTRODUCCION"}
-        descripcion={""}
-        link={data?.catalog_video_url??"https://www.youtube.com/embed/E1tnA8oeqyY?si=DUoaUzGff0qIpFbi"}
-      />
+        keyName={"catalog_video_url"}
+        defaultUrl={"https://www.youtube.com/embed/E1tnA8oeqyY?si=DUoaUzGff0qIpFbi"}
+      client:only/>
     </section>
     <section class="App">
       <h3 class="md:text-4xl font-bold text-2xl mb-5" style="color: var(--color-text);">

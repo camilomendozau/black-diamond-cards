@@ -3,6 +3,7 @@ import background from '../assets/background2.jpeg';
 import Image from 'astro/components/Image.astro';
 import logo from '../assets/logo.avif';
 import { ThemeProvider } from '../components/ThemeProvider';
+import DataFetcher from '../components/DataFetcher';
 ---
 
 <!doctype html>
@@ -14,7 +15,6 @@ import { ThemeProvider } from '../components/ThemeProvider';
 		<meta name="generator" content={Astro.generator} />
 		<title>Presentación Biolife</title>
 	</head>
-	<body>
 		<ThemeProvider client:load>
 			<header class="sticky top-0 left-0 w-full bg-white bg-opacity-90 backdrop-blur-md z-10 shadow-md">
 				<a href="/">
@@ -24,10 +24,10 @@ import { ThemeProvider } from '../components/ThemeProvider';
 				</a>
 			</header>
 			<body>
+				<DataFetcher client:load/>
 				<slot />
 			</body>
 		</ThemeProvider>
-	</body>
 </html>
 
 <style>

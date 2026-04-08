@@ -25,7 +25,7 @@ class Analytics {
     let params = new URLSearchParams(window.location.search);
     this.idRef = params.get('ir') ? params.get('ir') : undefined;
     if (this.idRef) {
-      localStorage.setItem('id-ref', this.idRef);
+      sessionStorage.setItem('id-ref', this.idRef);
     }
     
     this.setupListeners();
@@ -295,7 +295,7 @@ class Analytics {
     try {
         const payload = {
             session_id: sessionStorage.getItem('analytics-session'),
-            id_ref: localStorage.getItem('id-ref'),
+            id_ref: sessionStorage.getItem('id-ref'),
             action: action,
             prospect_id: localStorage.getItem('prospect-id'),
             user_agent: navigator.userAgent,
@@ -327,8 +327,7 @@ class Analytics {
 
         const data = await response.json();
         
-        console.log(data)
-        //Guardar datos del referidor
+        
         if (data.referer_image && 
             !data.referer_image.toLowerCase().includes('none')) {
             localStorage.setItem('referrer_image', data.referer_image);

@@ -1,113 +1,107 @@
 import { useState, useRef, useEffect } from "react";
 import ReactPlayer from "react-player";
-import Loader from "./Loader";
-import usePlaybackVector from "../hooks/usePlaybackVector";
-import analytics from "../scripts/analytics";
 import DownloaderButton from "./DownloaderButton";
 import { navigate } from "astro/virtual-modules/transitions-router.js";
+import analytics from "../scripts/analytics";
 
-export default function VideoPlayerLocal({ src, name }) {
-    const [duration, setDuration] = useState(0);
-    const [timeViewed, setTimeViewed] = useState(0);
-    const playerRef = useRef(null);
-    const [controlsVisible, setControlsVisible] = useState(true);
+const DEFAULT_VIDEO = "https://www.youtube.com/embed/iOEsgul1Tj0?si=1-eOcOLgnJfpOUcT";
 
-    // ← Inicializar analytics al montar
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            analytics.init();
-        }
-    }, []);
+export default function Video({ title = "Video", keyName = "", defaultUrl = "" }) {
+  const [duration, setDuration] = useState(0);
+  const [dataUrls, setDataUrls] = useState(null);
+  const [controlsVisible, setControlsVisible] = useState(true);
+  const playerRef = useRef(null);
+  const videoUrl = dataUrls?.[keyName] ?? defaultUrl;
+  const isLocal = videoUrl !== "" && !videoUrl.includes("https") && !videoUrl.includes("youtube.com");
 
-    const handleDurationYoutube = (event) => {
-        let durationInSeconds = event.target.api.getDuration();
-        setDuration(durationInSeconds);
+  useEffect(() => {
+    if (typeof window !== 'undefined') analytics.init();
+  }, []);
+
+  useEffect(() => {
+    const handleStorage = () => {
+        setDataUrls(JSON.parse(sessionStorage.getItem('yt-vid-urls') || 'null'));
     };
 
-    const handleDuration = (event) => {
-        let durationInSeconds = event.target.duration;
-        setDuration(durationInSeconds);
+    handleStorage();
+    window.addEventListener('storage', handleStorage); // escucha cambios
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
+
+  useEffect(() => {
+    const handleReady = () => {
+        setDataUrls(JSON.parse(sessionStorage.getItem('yt-vid-urls') || 'null'));
     };
 
-    const onStartPlayer = () => {
-        analytics.trackVideoStart(name);
-        setControlsVisible(false);
-    };
+    handleReady(); // por si ya está en sessionStorage
+    window.addEventListener('session-ready', handleReady); 
+    return () => window.removeEventListener('session-ready', handleReady);
+   }, []);
 
-    const onPausedPlayer = (state) => {
-        const percentagePlayed = duration > 0 
-            ? Math.round((state.target.currentTime / duration) * 100) 
-            : 0;
-        analytics.trackVideoPause(name, percentagePlayed);
-    };
+  const handleDuration = (event) => setDuration(event.target.duration);
+  const handleDurationYoutube = (event) => setDuration(event.target.api.getDuration());
 
-    // ← Modificar esta función para verificar antes de navegar
-    const onEndVideo = async () => {
-        analytics.trackVideoComplete(name, duration);
-        
-        // Verificar si el prospecto ya tiene datos completos
-        try {
-            const prospectData = await analytics.checkProspectData();
-            
-            if (prospectData.has_complete_data) {
-                // Ya tiene datos, ir directo al material o mostrar mensaje
-                console.log('✅ Prospecto ya tiene datos completos');
-                // Puedes navegar a otra página o mostrar un mensaje
-                navigate("/"); // O la página que corresponda
-            } else {
-                // No tiene datos, ir al formulario
-                console.log('📝 Prospecto necesita completar datos');
-                navigate("/registro");
-            }
-        } catch (error) {
-            console.error('Error checking prospect data:', error);
-            // En caso de error, ir al formulario por seguridad
-            navigate("/registro");
-        }
-        
-        setControlsVisible(true);
-    };
+  const onStartPlayer = () => {
+    analytics.trackVideoStart(title);
+    setControlsVisible(false);
+  };
 
-    return (
-        !src.includes("https") && !src.includes("youtube.com") ? (
-            <div className="flex items-center justify-center flex-col md:flex-row">
-                <div className="md:w-2/3 w-11/12 aspect-video rounded-2xl shadow-2xl flex items-center justify-center">
-                    <ReactPlayer
-                        src={src}
-                        ref={playerRef}
-                        controls={controlsVisible}
-                        width={"100%"}
-                        height={"100%"}
-                        onPause={onPausedPlayer}
-                        onStart={onStartPlayer}
-                        onDurationChange={handleDuration}
-                        onEnded={onEndVideo}
-                    />
-                </div>
-                <DownloaderButton src={src} />
-            </div>
+  const onPausedPlayer = (state) => {
+    const percentagePlayed = duration > 0
+      ? Math.round((state.target.currentTime / duration) * 100)
+      : 0;
+    analytics.trackVideoPause(title, percentagePlayed);
+  };
+
+  const onEndVideo = async () => {
+    analytics.trackVideoComplete(title, duration);
+    try {
+      const prospectData = await analytics.checkProspectData();
+      navigate(prospectData.has_complete_data ? "/" : "/registro");
+    } catch (error) {
+      console.error('Error checking prospect data:', error);
+      navigate("/registro");
+    }
+    setControlsVisible(true);
+  };
+
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center my-5 md:flex-row md:items-center md:justify-center md:my-10 md:snap-start">
+      <div className="md:w-full md:h-5/6 w-9/10 aspect-video rounded-2xl overflow-hidden shadow-2xl mx-10 flex items-center justify-center md:border-[40px] border-[15px] border-transparent">
+        {isLocal ? (
+          <div className="flex items-center justify-center flex-col md:flex-row w-full h-full">
+            <ReactPlayer
+              ref={playerRef}
+              src={defaultUrl}
+              controls={controlsVisible}
+              width="100%"
+              height="100%"
+              onDurationChange={handleDuration}
+              onStart={onStartPlayer}
+              onPause={onPausedPlayer}
+              onEnded={onEndVideo}
+            />
+            <DownloaderButton src={defaultUrl} />
+          </div>
         ) : (
-            <div className="w-full aspect-video rounded-2xl" style={{ outline: '40px solid transparent', boxShadow: '0 35px 60px -15px rgba(0,0,0,0.25)' }}>
-                <ReactPlayer
-                    src={src}
-                    ref={playerRef}
-                    controls={controlsVisible}
-                    width={"100%"}
-                    height={"100%"}
-                    config={{
-                        youtube: {
-                            playerVars: {
-                                rel: 0,
-                                modestbranding: 1,
-                            },
-                        },
-                    }}
-                    onStart={onStartPlayer}
-                    onPause={onPausedPlayer}
-                    onDurationChange={handleDurationYoutube}
-                    onEnded={onEndVideo}
-                />
-            </div>
-        )
-    );
+          <ReactPlayer
+            ref={playerRef}
+            src={dataUrls?.[keyName]??defaultUrl}
+            controls={controlsVisible}
+            width="100%"
+            height="100%"
+            config={{
+              youtube: {
+                playerVars: { rel: 0, modestbranding: 1 },
+              },
+            }}
+            onStart={onStartPlayer}
+            onPause={onPausedPlayer}
+            onDurationChange={handleDurationYoutube}
+            onEnded={onEndVideo}
+          />
+        )}
+      </div>
+    </div>
+  );
 }

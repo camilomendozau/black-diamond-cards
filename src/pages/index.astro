@@ -1,12 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Video from '../components/Video.astro';
+import Video from '../components/VideoPlayerLocal';
 import ButtonRedirect from '../components/ButtonRedirect.astro';
 import imagenVendedor from '../assets/imagen-representante2.png';
+import DataFetcher from '../components/DataFetcher';
 import { Icon } from 'astro-iconify'
-const param = Astro.url.searchParams.get('ir');
-import { getDatos, idRef } from '../scripts/api';
-const data = await getDatos(param || idRef || '');
+// import { getVideoData, idRef } from '../scripts/api';
+// const data = await getVideoData(param || idRef || '');
+// import { videoData } from '../scripts/api';
+
 ---
 
 <Layout>
@@ -15,9 +17,11 @@ const data = await getDatos(param || idRef || '');
 			<section class="video-container">
 				<Video 
 						title={"Introduccion"} 
-						descripcion={""}
-						link={data?.initial_video_url??"https://www.youtube.com/embed/vwgtVqjh1yQ?si=wWNZEWQPWHh4ED3j"}
-				    />
+						keyName={"initial_video_url"}
+						defaultUrl={
+							"https://youtu.be/vwgtVqjh1yQ?si=eJKFTCx9Lmupqtef"
+						}
+				  client:only  />
 			</section>
 		</div>
 		<div class="sidebar-content-right">
@@ -64,7 +68,7 @@ const data = await getDatos(param || idRef || '');
 					>
 					Trabaja conmigo <br> Haz clic aquí
 					</a>
-					<Icon name="logos:whatsapp-icon" class="absolute top-0 right-0 md:w-20 md:h-20 w-12 h-12" />
+					<!-- <Icon name="logos:whatsapp-icon" class="absolute top-0 right-0 md:w-20 md:h-20 w-12 h-12" /> -->
 				</div>
 			</section>
 		</div>

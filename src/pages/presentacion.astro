@@ -1,10 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import VideoLocal from "../components/VideoLocal.astro";
-import Video from "../components/Video.astro";
+import Video from "../components/VideoPlayerLocal";
 const param = Astro.url.searchParams.get('ir');
-import { getDatos, idRef } from '../scripts/api';
-const data = await getDatos(param || idRef || '');
+
 ---
 
 <Layout>
@@ -15,19 +14,13 @@ const data = await getDatos(param || idRef || '');
             </h1>
         </div>
         <section class="video-container">
-            {data?.presentation_video_url ?(
-               <Video
-                        title={"Presentacion del Negocio"}
-                        descripcion={""}
-                        link={data.presentation_video_url}
-                />   
-              ):(
+            {
                 <VideoLocal 
-                  title={""} 
+                  title={"Presentacion del Negocio"} 
                   descripcion={""}
                   src={"/videos/presentacion.mp4"}
-                />
-              )      
+                  keyNam={"presentation_video_url"}
+                />    
             }   
         </section>
   </main>

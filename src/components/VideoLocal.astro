@@ -9,23 +9,12 @@ interface VideoProps {
     src?:string;
 }
 
-const {title = "Local Video", descripcion="Descripcion" ,src=""} = Astro.props;
+const {title = "Local Video", src="" ,keyNam="", descripcion=""} = Astro.props;
 
 ---
 
 <div class="w-full h-full flex flex-col items-center justify-center my-5 md:items-center md:justify-center md:my-2 md:snap-start">
-    <h1 class="md:text-4xl font-bold text-2xl m-5 text-center" id="title" style="color: var(--color-text);">
-        {title}
-    </h1>
-    
-        <!-- <video controls autoplay transition:persist>
-            <source
-            src={src}
-            type="video/mp4"
-            />
-        </video> -->
-    <!-- <VideoLocalWithControls src={src} /> -->
-    <VideoPlayerLocal src={src} name={title} client:only/>
+    <VideoPlayerLocal title={title} defaultUrl={src} keyName={keyNam} client:only/>
 
     <p class="text-sm md:text-2xl md:font-medium text-center m-5">
         {descripcion}
