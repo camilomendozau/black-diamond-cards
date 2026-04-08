@@ -80,12 +80,12 @@ import { Icon } from 'astro-iconify'
 		const sellerImg = document.getElementById('seller-image') as HTMLImageElement | null;
 		const sellerWhatsApp = document.getElementById('seller-whatsapp') as HTMLAnchorElement | null;
 		
-		if (sellerImg && localStorage.getItem('referrer_image')) {
-			sellerImg.src = localStorage.getItem('referrer_image') || '';
+		if (sellerImg && localStorage.getItem('referrer-image')) {
+			sellerImg.src = localStorage.getItem('referrer-image') || '';
 		}
 		
-		if (sellerWhatsApp && localStorage.getItem('referrer_whatsapp')) {
-			sellerWhatsApp.href = `https://wa.me/${localStorage.getItem('referrer_whatsapp')}`;
+		if (sellerWhatsApp && localStorage.getItem('referrer-whatsapp')) {
+			sellerWhatsApp.href = `https://wa.me/${localStorage.getItem('referrer-whatsapp')}`;
 		}
 	});
 </script>

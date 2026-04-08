@@ -21,6 +21,13 @@ export default function DataFetcher() { // 👈 sin props
         const data = await res.json();
         console.log('Fetched data:', data); // 👈 log para verificar datos
 
+        // if (data.referer_image && 
+        //     !data.referer_image.toLowerCase().includes('none')) {
+        //     sessionStorage.setItem('referrer-image', data.referer_image);
+        // }
+        // if (data.phone_number) {
+        //     sessionStorage.setItem('referrer-whatsapp', data.phone_number);
+        // }
         sessionStorage.setItem('yt-vid-urls', JSON.stringify(data));
         sessionStorage.setItem('id-ref', userCode);
         window.dispatchEvent(new Event('session-ready'));
