@@ -330,10 +330,17 @@ class Analytics {
         
         if (data.referer_image && 
             !data.referer_image.toLowerCase().includes('none')) {
+<<<<<<< HEAD
             localStorage.setItem('referrer-image', data.referer_image);
         }
         if (data.phone_number) {
             localStorage.setItem('referrer-whatsapp', data.phone_number);
+=======
+            localStorage.setItem('referrer_image', data.referer_image);
+        }
+        if (data.phone_number) {
+            localStorage.setItem('referrer_whatsapp', data.phone_number);
+>>>>>>> BDB-0009
         }
         
         return data;

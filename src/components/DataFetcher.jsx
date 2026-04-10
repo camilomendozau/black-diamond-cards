@@ -19,7 +19,7 @@ export default function DataFetcher() { // 👈 sin props
         if (!res.ok) return;
 
         const data = await res.json();
-        console.log('Fetched data:', data); // 👈 log para verificar datos
+        //console.log('Fetched data:', data); // 👈 log para verificar datos
 
         // if (data.referer_image && 
         //     !data.referer_image.toLowerCase().includes('none')) {
