@@ -19,7 +19,6 @@ export default function DataFetcher() { // 👈 sin props
         if (!res.ok) return;
 
         const data = await res.json();
-        //console.log('Fetched data:', data); // 👈 log para verificar datos
 
         sessionStorage.setItem('yt-vid-urls', JSON.stringify(data));
         sessionStorage.setItem('id-ref', userCode);
