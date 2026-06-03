@@ -395,7 +395,7 @@ class Analytics {
 }
 
 // ← NO inicializar automáticamente
-const analytics = new Analytics('http://localhost:8000');
+const analytics = new Analytics(process.env.PROD_SERVER_URL || process.env.DEV_SERVER_URL);
 
 // NO HACER ESTO:
 // document.addEventListener('DOMContentLoaded', () => {
