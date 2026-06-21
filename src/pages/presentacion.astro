@@ -6,7 +6,7 @@ const param = Astro.url.searchParams.get('ir');
 
 ---
 
-<Layout>
+<!-- <Layout>
   <main>
         <div class="flex flex-col items-center justify-center mt-5">
             <h1 class="md:text-5xl font-bold text-2xl" style="color: var(--color-text);">
@@ -15,20 +15,29 @@ const param = Astro.url.searchParams.get('ir');
         </div>
         <section class="video-container">
             {
-                // <VideoLocal 
-                //   title={"Presentacion del Negocio"} 
-                //   descripcion={""}
-                //   src={"/videos/presentacion.mp4"}
-                //   keyNam={"presentation_video_url"}
-                // />   
-                <Video 
-						title={"Presentacion del Negocio"} 
-						keyName={"presentation_video_url"}
-						defaultUrl={
-							"https://youtu.be/TLdjr8X6_Co"
-						}
-				  client:only/>
+                <VideoLocal 
+                  title={"Presentacion del Negocio"} 
+                  descripcion={""}
+                  src={"/videos/presentacion.mp4"}
+                  keyNam={"presentation_video_url"}
+                />    
             }   
         </section>
   </main>
+</Layout> -->
+<Layout>
+    <main>
+        <div class="flex flex-col items-center justify-center mt-5">
+            <h1 class="md:text-5xl font-bold text-2xl" style="color: var(--color-text);">
+                Presentacion del Negocio
+            </h1>
+        </div>
+        <section class="flex flex-col items-center justify-center pb-10 mb-10 p-5 video-container">
+            <Video
+                title={"Presentacion del Negocio"}
+                keyName={"presentation_video_url"}
+                defaultUrl={"https://youtu.be/TLdjr8X6_Co?si=JfKfjv3Kmi5nRlng"}
+            client:only/>
+        </section>
+    </main>
 </Layout>
