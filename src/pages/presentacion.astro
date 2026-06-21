@@ -21,11 +21,13 @@ const param = Astro.url.searchParams.get('ir');
                 //   src={"/videos/presentacion.mp4"}
                 //   keyNam={"presentation_video_url"}
                 // />   
-                <Video
-                    title={"Presentacion del Negocio"}
-                    keyName={"presentation_video_url"}
-                    defaultUrl={"https://youtu.be/TLdjr8X6_Co?si=cHJReWe7aFhjGntr"}
-                /> 
+                <Video 
+						title={"Presentacion del Negocio"} 
+						keyName={"presentation_video_url"}
+						defaultUrl={
+							"https://youtu.be/TLdjr8X6_Co"
+						}
+				  client:only/>
             }   
         </section>
   </main>
