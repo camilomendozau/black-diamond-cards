@@ -1,8 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import VideoLocal from "../components/VideoLocal.astro";
+// import VideoLocal from "../components/VideoLocal.astro";
 import Video from "../components/VideoPlayerLocal";
-const param = Astro.url.searchParams.get('ir');
+import "../styles/global.css";
+// const param = Astro.url.searchParams.get('ir');
 
 ---
 
@@ -33,11 +34,11 @@ const param = Astro.url.searchParams.get('ir');
             </h1>
         </div>
         <section class="flex flex-col items-center justify-center pb-10 mb-10 p-5 video-container">
-            <Video
-                title={"Presentacion del Negocio"}
-                keyName={"presentation_video_url"}
-                defaultUrl={"https://youtu.be/TLdjr8X6_Co?si=JfKfjv3Kmi5nRlng"}
-            client:only/>
+                <Video
+                    title={"Presentacion del Negocio"}
+                    keyName={"presentation_video_url"}
+                    defaultUrl={"https://youtu.be/TLdjr8X6_Co?si=JfKfjv3Kmi5nRlng"}
+                client:only/>
         </section>
     </main>
 </Layout>
